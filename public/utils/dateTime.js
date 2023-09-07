@@ -25,13 +25,13 @@ const dateTime = {
    * @param {*} fmt 格式化匹配格式
    * @param {*} isTotal 是否返回本月天数，默认返回日期格式
   */
-  getMonthLastDay: function (opts, isTotal) {
+  getMonthLastDay: function (opts, isCurrentTotalDay) {
     let { date, fmt } = opts || {}
     fmt = fmt || this.dateFmt
 
     let now = (typeof opts === 'string') ? new Date(opts) : (new Date(date || new Date()))
     let reDate = new Date(now.getFullYear(), now.getMonth() + 1, 0)
-    return isTotal ? reDate.getDate() : this.dateToStr({ date: reDate, fmt })
+    return isCurrentTotalDay ? reDate.getDate() : this.dateToStr({ date: reDate, fmt })
   },
   /**
    * 获取与当前时间间隔几天，几月，几年的时间，默认返回上月。
@@ -69,6 +69,7 @@ const dateTime = {
    * 时间转字符串
    * @param {*} date 日期
    * @param {*} fmt 格式化匹配格式
+   * @param {*} fmt 如果是xxxx年xx月xx日格式，则 fmt 可取值对应 yyyy年MM月dd日
   */
   dateToStr: function (opts) {
     let { date, fmt } = opts || {}
